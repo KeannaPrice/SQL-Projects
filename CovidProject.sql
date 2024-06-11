@@ -111,8 +111,6 @@ SELECT *, (vaccinationcount_rolling/population) * 100
 FROM vac_per_pop; 
 
 		-- USING TEMP TABLE -- 
-        
--- review this table, output table is empty
 DROP TABLE IF EXISTS percentpopulationvaccinated; 
 CREATE TEMPORARY TABLE percentpopulationvaccinated
 (
@@ -137,7 +135,7 @@ FROM percentpopulationvaccinated;
 
 -- ----------------------- --
 
--- CREATE VIEW FOR DATA VISUALIZATIONS -- 
+-- Create View For Data Visualizations -- 
 CREATE VIEW percentpopulationvaccinated AS 
 SELECT cd.continent, cd.location, STR_TO_DATE(cd.date, '%d/%m/%Y') AS date, cd.population, NULLIF(cv.new_vaccinations, '') AS new_vaccinations,
 	SUM(NULLIF(cv.new_vaccinations, 0)) OVER (PARTITION BY cd.location ORDER BY cd.location, cd.date) AS vaccinationcount_rolling

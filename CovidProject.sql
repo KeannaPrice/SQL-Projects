@@ -77,7 +77,7 @@ WHERE continent IS NOT NULL;
 -- -------------------- --
 
 -- Vaccinations 
-	-- Join Tables coviddeaths & covidvaccinations
+	-- Join tables coviddeaths & covidvaccinations
 SELECT * 
 FROM coviddeaths cd
 JOIN covidvaccinations cv
@@ -95,7 +95,7 @@ WHERE cd.continent is NOT NULL AND cd.location = 'Costa Rica'
 ORDER BY 2,3; 
 
 		-- USING CTE -- 
-With vac_per_pop (continent, location, date, population, new_vaccinations, vaccinationcount_rolling)
+WITH vac_per_pop (continent, location, date, population, new_vaccinations, vaccinationcount_rolling)
 AS 
 (
 SELECT cd.continent, cd.location, cd.date, cd.population, cv.new_vaccinations,
@@ -107,7 +107,7 @@ JOIN covidvaccinations cv
 WHERE cd.continent is NOT NULL
 -- ORDER BY 2,3 
 )
-SELECT *, (vaccinationcount_rolling/population) * 100 
+SELECT *, (vaccinationcount_rolling/population) * 100 AS percentvacc_rolling
 FROM vac_per_pop; 
 
 		-- USING TEMP TABLE -- 
